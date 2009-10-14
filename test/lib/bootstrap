@@ -1,0 +1,19 @@
+## vim:ft=zsh
+# ct_test_bootstrap
+
+function ct_test_bootstrap {
+	echo "# bootstrapping PKG_DIR"
+	$test_proot/caretaker/include/bootstrap $test_proot $test_pdir
+
+	echo "# checking for success"
+	[[ -e $test_home/.config/caretaker/caretaker.conf ]]
+	[[ -d $test_proot/caretaker ]]
+	[[ -d $test_pdir/caretaker ]]
+	[[ -L $test_home/bin/ct ]]
+	[[ -L $test_home/bin/checklinks ]]
+	[[ -x $(readlink $test_home/bin/ct) ]]
+	[[ -x $(readlink $test_home/bin/checklinks) ]]
+	[[ -e $test_pdir/.collected/man/man1/ct.1 ]]
+	[[ -e $test_pdir/.collected/man/man5/caretaker.conf.5 ]]
+	[[ -e $test_pdir/.collected/man/man7/caretaker.7 ]]
+}
