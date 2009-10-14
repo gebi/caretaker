@@ -37,28 +37,14 @@ export PATH=$PWD/bin:$PATH
 cd $test_home
 export HOME=$test_home
 
-# Does not require a working package root
+# Does not require a working package root,
+# but a temporary home directory
 ct_test_checklinks
 
 ct_setup_root 1 $test_proot
 
 ct_test_bootstrap
-
-echo "# ct list local"
-stringcmp "caretaker" "$(ct list)"
-stringcmp "caretaker" "$(ct list local)"
-
-echo "# ct list not-installed"
-stringcmp "ra\nra-bare\nrb\nrb-bare\nrc\nrc-bare" "$(ct list not-installed)"
-
-echo "# ct list all"
-stringcmp "caretaker\nra\nra-bare\nrb\nrb-bare\nrc\nrc-bare" "$(ct list all)"
-
-echo "# ct add (no such repo)"
-! ct add weltfrieden
-
-echo "# ct add (already installed)"
-! ct add caretaker
+ct_test_misc
 
 for conf_origin in 0 1; {
 	echo "## GIT_USE_ORIGIN=$conf_origin"

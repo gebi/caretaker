@@ -1,0 +1,20 @@
+## vim:ft=zsh
+# ct_test_misc
+
+function ct_test_misc {
+	echo "# ct list local"
+	stringcmp "caretaker" "$(ct list)"
+	stringcmp "caretaker" "$(ct list local)"
+
+	echo "# ct list not-installed"
+	stringcmp "ra\nra-bare\nrb\nrb-bare\nrc\nrc-bare" "$(ct list not-installed)"
+
+	echo "# ct list all"
+	stringcmp "caretaker\nra\nra-bare\nrb\nrb-bare\nrc\nrc-bare" "$(ct list all)"
+
+	echo "# ct add (no such repo)"
+	! ct add weltfrieden
+
+	echo "# ct add (already installed)"
+	! ct add caretaker
+}
