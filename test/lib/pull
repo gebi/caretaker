@@ -1,0 +1,11 @@
+## vim:ft=zsh
+# ct_test_pull <repo> <repo file>
+
+function ct_test_pull {
+	typeset repo=$1 file=$2
+	if [[ $repo == $file ]] {
+		echo "# ct pull"
+		ct pull
+		[[ -f $pkgdir/$repo/baz ]]
+	}
+}

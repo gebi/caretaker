@@ -1,0 +1,39 @@
+## vim:ft=zsh
+# ct_test_checklinks
+
+# defining aliases inside of functions leads to fuckup
+alias checklinks='checklinks --parameter quux=flurbl --msglevel 99'
+
+function ct_test_checklinks {
+	cat > links <<- quux
+		foo ignored
+		# ignored
+		hard foo bar
+		soft link file
+		soft blub \$quux
+	quux
+
+	echo barbl > bar
+	echo flurbl > file
+	echo morp > flurbl
+
+	echo "# checklinks"
+	checklinks
+	[[ $(cat foo) == $(cat bar) ]]
+	[[ $(cat link) == $(cat file) ]]
+	[[ $(cat blub) == $(cat flurbl) ]]
+
+	echo "# checklinks --remove"
+	checklinks --remove
+	[[ ! -e foo ]]
+	[[ -e bar ]]
+	[[ ! -e link ]]
+	[[ -e file ]]
+	[[ ! -e blub ]]
+	[[ -e flurbl ]]
+
+	echo "# checklinks: link source exists already"
+	echo exists > link
+	! checklinks
+	[[ $(cat link) == exists ]]
+}

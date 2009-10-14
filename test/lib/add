@@ -1,0 +1,26 @@
+## vim:ft=zsh
+# ct_test_add <repository>
+function ct_test_add {
+	typeset repo=$1
+
+	echo "# ct add (ok)"
+	ct add $repo
+	[[ -e $test_pdir/$repo/foo ]]
+	[[ -d $test_pdir/$repo/.git ]]
+
+	echo "# ct add (already installed)"
+	! ct add $repo
+
+	echo "# update_collected"
+	[[ -L $test_home/bin/$file ]]
+	[[ -x $(readlink $test_home/bin/$file) ]]
+	[[ -e $test_pdir/.collected/man/man2/$file.2 ]]
+
+	repeat 2 {
+		echo "# ct list"
+		stringcmp "caretaker\n$repo" "$(ct list local)"
+		stringcmp "$complement\nrb\nrb-bare\nrc\nrc-bare" "$(ct list not-installed)"
+		stringcmp "caretaker\nra\nra-bare\nrb\nrb-bare\nrc\nrc-bare" "$(ct list remote)"
+		ct update
+	}
+}

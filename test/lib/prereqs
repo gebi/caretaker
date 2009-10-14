@@ -1,0 +1,8 @@
+## vim:ft=zsh
+# ct_test_prereqs <repo file>
+
+function ct_test_prereqs {
+	typeset file=$1
+	echo "# prereqs"
+	[[ -f ~/prereq_ok_$file ]]
+}

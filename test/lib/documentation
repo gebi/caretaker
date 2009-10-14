@@ -1,0 +1,8 @@
+## vim:ft=zsh
+# ct_test_documentation
+
+function ct_test_documentation {
+	echo "# Documentation"
+	podchecker bin/checklinks
+	podchecker -warnings -warnings man/*/*
+}

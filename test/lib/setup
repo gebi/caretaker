@@ -1,0 +1,30 @@
+## vim:ft=zsh
+# setup_ct_root <only one package root?> <path> <url to caretaker repo>
+function ct_setup_root {
+	typeset repo single_root=$1 test_proot=$2
+	echo "# setting up PKG_ROOT"
+	cd $test_proot
+	((single_root)) && git clone --quiet ${ct_repo-git://git.tabularazor.org/~derf/caretaker} caretaker
+	cp caretaker/include/pkglist pkglist
+	for repo in ra rb rc; (
+		mkdir $repo
+		cd $repo
+		git init --quiet
+		git config receive.denyCurrentBranch ignore
+		touch foo
+		mkdir bin
+		touch bin/$repo
+		mkdir -p man/2
+		echo "=head1 WASTED SPACE\n\nhuhu" > man/2/$repo
+		chmod 755 bin/$repo
+		echo 'touch ~/prereq_ok_'$repo > prereqs
+		git add .
+		git commit --quiet -m 'initial commit'
+		cd ..
+		mkdir ${repo}-bare
+		cd ${repo}-bare
+		git --bare init --quiet
+		cd ../$repo
+		git push ../${repo}-bare master
+	)
+}

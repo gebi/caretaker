@@ -1,0 +1,14 @@
+## vim:ft=zsh
+# ct_test_pull_prepare <repo> <repo file>
+
+function ct_test_pull_prepare {
+	typeset repo=$1 file=$2
+	if [[ $repo == $file ]] {
+		echo "# Creating new commit in PKG_ROOT"
+		cd $test_proot/$file
+		git checkout -q -f
+		echo $RANDOM > baz
+		git add baz
+		git commit --quiet -m 'floeppel'
+	}
+}

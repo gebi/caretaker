@@ -1,6 +1,0 @@
-## vim:ft=zsh
-if [[ $repo == $file ]] {
-	echo "# ct pull"
-	ct pull
-	[[ -f $pkgdir/$repo/baz ]]
-}
