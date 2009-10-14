@@ -84,6 +84,7 @@ for conf_origin in 0 1; {
 		ct_test_push $repo
 		cd $test_pdir
 		ct_test_pull_prepare $repo $file
+		ct_test_pull $repo $file
 		ct_test_remove $repo
 	}
 }

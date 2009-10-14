@@ -6,6 +6,6 @@ function ct_test_pull {
 	if [[ $repo == $file ]] {
 		echo "# ct pull"
 		ct pull
-		[[ -f $pkgdir/$repo/baz ]]
+		[[ -f $test_pdir/$repo/baz ]]
 	}
 }
