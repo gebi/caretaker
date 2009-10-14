@@ -2,10 +2,7 @@
 # ct_test_bootstrap
 
 function ct_test_bootstrap {
-	echo "# bootstrapping PKG_DIR"
-	$test_proot/caretaker/include/bootstrap $test_proot $test_pdir
-
-	echo "# checking for success"
+	echo "# checking bootstrap for success"
 	[[ -e $test_home/.config/caretaker/caretaker.conf ]]
 	[[ -d $test_proot/caretaker ]]
 	[[ -d $test_pdir/caretaker ]]

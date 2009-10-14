@@ -5,6 +5,7 @@
 alias checklinks='checklinks --parameter quux=flurbl --msglevel 99'
 
 function ct_test_checklinks {
+	cd ~
 	cat > links <<- quux
 		foo ignored
 		# ignored
