@@ -32,11 +32,11 @@ ct_new_test_env
 ct_test_misc
 
 for conf_origin in 0 1; {
-	echo "## GIT_USE_ORIGIN=$conf_origin"
 	for repo in ra ra-bare; {
 
 		ct_new_test_env
 		echo "GIT_USE_ORIGIN=$conf_origin" >> $test_home/.config/caretaker/caretaker.conf
+		echo "## GIT_USE_ORIGIN=$conf_origin"
 
 		file=${repo%-*}
 		if [[ $repo == *-bare ]] {
