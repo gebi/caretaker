@@ -33,8 +33,11 @@ ct_test_misc
 
 for conf_origin in 0 1; {
 	echo "## GIT_USE_ORIGIN=$conf_origin"
-	echo "GIT_USE_ORIGIN=$conf_origin" >> $test_home/.config/caretaker/caretaker.conf
 	for repo in ra ra-bare; {
+
+		ct_new_test_env
+		echo "GIT_USE_ORIGIN=$conf_origin" >> $test_home/.config/caretaker/caretaker.conf
+
 		file=${repo%-*}
 		if [[ $repo == *-bare ]] {
 			echo "## bare repository"
@@ -43,7 +46,7 @@ for conf_origin in 0 1; {
 			echo "## non-bare repository"
 			complement=${repo}-bare
 		}
-		ct_new_test_env
+
 		ct_test_add $repo
 		ct_test_prereqs $file
 		cd $test_pdir/$repo
