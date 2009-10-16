@@ -31,6 +31,8 @@ ct_test_bootstrap
 ct_new_test_env
 ct_test_misc
 
+ct_test_make
+
 for conf_origin in 0 1; {
 	for repo in ra ra-bare; {
 

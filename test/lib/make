@@ -1,0 +1,16 @@
+## vim:ft=zsh
+# ct_test_make
+
+function ct_test_make {
+	cd $test_proot
+	mkdir makerepo
+	cd makerepo
+	git init
+	echo "default:\n\ttouch flurbl" > Makefile
+	git add Makefile
+	git commit -m initial
+	cd ~
+	ct update
+	ct add makerepo
+	[[ -f $test_pdir/makerepo/flurbl ]]
+}
